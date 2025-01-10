@@ -1,2 +1,7 @@
-# Flet-for-arduino
-I will try to use Firmata and use some parts of this code
+# Flet-for-arduino (English)
+This example demonstrates a simple C++ program on Arduino and a Flet program to read the data.
+If you want to achieve more advanced results in an easier way, consider using Telemetrix for Arduino instead.
+
+# Flet-for-arduino (Português)
+Este exemplo demonstra um programa simples em C++ no Arduino e um programa Flet para ler os dados.
+Se quiser obter resultados mais avançados de forma mais fácil, considere usar o Telemetrix para Arduino.
