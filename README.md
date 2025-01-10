@@ -131,7 +131,7 @@ Se a sua aplicação Flet utiliza o controle de Vídeo, instale as bibliotecas `
 
 ```bash
 sudo apt install libmpv-dev mpv
-
+```
 
 ## Telemetrix
 O **Projeto Telemetrix** é uma substituição moderna para o Arduino StandardFirmata, equipado com muitos mais recursos integrados do que o StandardFirmata. O projeto consiste em APIs Python para criar aplicações cliente em Python e servidores C++ que comunicam com o cliente Python via porta série ou Wi-Fi.
