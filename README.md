@@ -76,6 +76,8 @@ pip install telemetrix
 To communicate between Python and Arduino, you need to upload a program to the Arduino following the instructions at:  
 [Telemetrix Instructions for Arduino](https://mryslab.github.io/telemetrix/telemetrix4arduino/)
 
+
+
 # Flet para Arduino (Português)
 O Flet é um módulo de programação gráfica em que os programadores criam facilmente aplicações Web, móveis e de desktop em tempo real em Python.
 
