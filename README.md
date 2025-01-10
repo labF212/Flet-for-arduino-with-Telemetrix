@@ -1,4 +1,4 @@
-# Flet for Arduino (English)
+# Flet for Arduino
 ## English
 
 ### About Flet
