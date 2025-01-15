@@ -5,6 +5,7 @@ import flet as ft
 import asyncio
 import matplotlib.pyplot as plt
 from flet.matplotlib_chart import MatplotlibChart
+import subprocess
 
 # Configuração dos pinos do HC-SR04
 TRIGGER_PIN = 9
@@ -15,13 +16,44 @@ last_distance = None
 measurements = []  # Lista para armazenar as últimas medições
 error_message = ""
 min_range = 0
-max_range = 100
+max_range = 150
 sample_interval = 1  # Valor inicial do intervalo em segundos
 distance_between_measurements = 5  # Distância entre medidas inicial
 
 # Variáveis do gráfico
 graph_times = []
 graph_distances = []
+
+#Função para abrir outro programa Python
+def abrir_ler_dados(page):
+    try:
+        subprocess.Popen(["python3", ".venv/telemetrix_flet_scr04_read_6files.py"])
+
+        snack_bar = ft.SnackBar(
+            content=ft.Text("Programa para ler dados iniciado com sucesso!")
+        )
+
+        if snack_bar not in page.overlay:
+            page.overlay.append(snack_bar)
+        snack_bar.open = True
+        page.update()
+       
+        time.sleep(2) #Aguardar tempo para ler mensagem
+        page.window.close() #fechar o programa
+        board.shutdown() #fechar Telemetrix para o poder abrir novamente
+        time.sleep(2) #Aguardar tempo para fechar ligações
+
+
+    except Exception as e:
+        snack_bar = ft.SnackBar(
+            content=ft.Text(f"Erro ao abrir o programa: {e}", color="red")
+        )
+        if snack_bar not in page.overlay:
+            page.overlay.append(snack_bar)
+        snack_bar.open = True
+        page.update()
+
+
 
 # Callback para capturar a distância medida
 def sonar_callback(data):
@@ -149,6 +181,98 @@ def update_graph(ax, line):
 
     # Redesenha o gráfico
     ax.figure.canvas.draw()
+
+def sobre_e_ajuda(page):
+    # Criando o pop-up (Dialog) com Markdown
+    markdown_content = ft.Markdown(
+        """
+# Sobre e Ajuda
+Bem-vindo ao programa de leitura de distâncias com sensores **HC-SR04**!
+
+### Funcionalidades
+- Gravação de ficheiros CSV com os resultados de medições.
+- Gráficos interativos das distâncias medidas.
+- Tabela detalhada com os resultados.
+
+### Autor
+- **Nome:** Paulo Galvão
+- **Versão:** 1.0
+- **Contato:** [paulo.galvao@estsetubal.ips.pt](mailto:paulo.galvao@estsetubal.ips.pt)
+
+### Como Utilizar
+1. Clique num dos botões de gravação, para gravar as medidas obtidas num ficheiro CSV.
+2. Visualize os dados na tabela e no gráfico.
+3. Para mais informações, consulte a documentação.
+
+### Observações
+- Este software foi desenvolvido para fins educacionais.
+- Certifique-se que o ficheiro de leitura e gravação estejam na mesma pasta.
+
+---
+
+        """,
+        extension_set="gitHub",  # Estilo do Markdown
+        selectable=True,         # Permite selecionar o texto
+    )
+
+# Criando botões para os links
+    link_buttons = ft.Row(
+        controls=[
+            ft.TextButton(
+                text="Onde Encontrar o Programa",
+                tooltip="Pressione para ir para a página web",
+                style=ft.ButtonStyle(
+                    text_style=ft.TextStyle(
+                        decoration=ft.TextDecoration.UNDERLINE
+                    )
+                ),
+
+                on_click=lambda e: page.launch_url("https://github.com/labF212/Gui-for-Python-Flet"),
+            ),
+            ft.Text("  |  "),
+            ft.TextButton(
+                text="Documentação Completa do Flet",
+                tooltip="Pressione para ir para a página web",
+                style=ft.ButtonStyle(
+                    text_style=ft.TextStyle(
+                        decoration=ft.TextDecoration.UNDERLINE
+                    )
+                ),
+                on_click=lambda e: page.launch_url("https://flet.dev/docs/"),
+            ),
+        ],
+        alignment=ft.MainAxisAlignment.CENTER,
+    )
+
+
+    dialog = ft.AlertDialog(
+        content=ft.Column(
+            controls=[
+            markdown_content,
+            link_buttons,
+            ],
+        ),
+    actions=[
+        ft.TextButton(
+            "Fechar",
+            on_click=lambda e: close_dialog(page, dialog)
+        ),
+    ],
+    )
+
+    # Adicionando o diálogo aos overlays da página
+    if dialog not in page.overlay:
+        page.overlay.append(dialog)
+    dialog.open = True
+    page.update()
+
+
+
+def close_dialog(page, dialog):
+    dialog.open = False
+    page.update()
+
+
 
 # Função principal do Flet
 async def main(page: ft.Page):
@@ -300,10 +424,27 @@ async def main(page: ft.Page):
                 ], alignment=ft.MainAxisAlignment.CENTER),
                 ft.Row([
                     ft.ElevatedButton(
-                        text="Sair", icon=ft.icons.EXIT_TO_APP, width=200,
-                        tooltip="Sair do Programa",
-                        on_click=lambda e: page.window.close()
+                        text="Ler dados", icon=ft.icons.UPLOAD_FILE, width=200,
+                        tooltip="Ir para programa de Leitura de Dados",
+                        on_click=lambda e: abrir_ler_dados(page)
                     ),
+
+                    ft.ElevatedButton(
+                        text="Sobre", icon=ft.Icons.HELP, width=200,
+                        tooltip="Sobre e Ajuda",
+                        on_click=lambda e: sobre_e_ajuda(page)
+                    ),
+
+                    ft.ElevatedButton(
+                        text="Sair", icon=ft.Icons.EXIT_TO_APP, width=200,
+                        tooltip="Sair do Programa",
+                        on_click=lambda e: (page.window.close()),
+                        #on_click=lambda e: (board.shutdown(), page.window.close()),
+                       
+                    ),
+
+
+
                 ], alignment=ft.MainAxisAlignment.CENTER),
             ],
             alignment=ft.MainAxisAlignment.CENTER,
