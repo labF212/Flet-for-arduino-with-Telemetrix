@@ -390,41 +390,41 @@ async def main(page: ft.Page):
             controls=[
                 ft.Row([
                     ft.ElevatedButton(
-                        text="Gravar Subida 1", icon=ft.icons.SAVE, width=200,
+                        text="Gravar Subida 1", icon=ft.Icons.SAVE, width=200,
                         tooltip="Gravar no ficheiro LeituraSubidaSonar1.csv",
                         on_click=lambda e: save_measurements("LeituraSubidaSonar1.csv", page)
                     ),
                     ft.ElevatedButton(
-                        text="Gravar Subida 2", icon=ft.icons.SAVE, width=200,
+                        text="Gravar Subida 2", icon=ft.Icons.SAVE, width=200,
                         tooltip="Gravar no ficheiro LeituraSubidaSonar2.csv",
                         on_click=lambda e: save_measurements("LeituraSubidaSonar2.csv", page)
                     ),
                     ft.ElevatedButton(
-                        text="Gravar Subida 3", icon=ft.icons.SAVE, width=200,
+                        text="Gravar Subida 3", icon=ft.Icons.SAVE, width=200,
                         tooltip="Gravar no ficheiro LeituraSubidaSonar3.csv",
                         on_click=lambda e: save_measurements("LeituraSubidaSonar3.csv", page)
                     ),
                 ], alignment=ft.MainAxisAlignment.CENTER),
                 ft.Row([
                     ft.ElevatedButton(
-                        text="Gravar Descida 1", icon=ft.icons.SAVE, width=200,
+                        text="Gravar Descida 1", icon=ft.Icons.SAVE, width=200,
                         tooltip="Gravar no ficheiro LeituraDescidaSonar1.csv",
                         on_click=lambda e: save_measurements("LeituraDescidaSonar1.csv", page)
                     ),
                     ft.ElevatedButton(
-                        text="Gravar Descida 2", icon=ft.icons.SAVE, width=200,
+                        text="Gravar Descida 2", icon=ft.Icons.SAVE, width=200,
                         tooltip="Gravar no ficheiro LeituraDescidaSonar2.csv",
                         on_click=lambda e: save_measurements("LeituraDescidaSonar2.csv", page)
                     ),
                     ft.ElevatedButton(
-                        text="Gravar Descida 3", icon=ft.icons.SAVE, width=200,
+                        text="Gravar Descida 3", icon=ft.Icons.SAVE, width=200,
                         tooltip="Gravar no ficheiro LeituraDescidaSonar3.csv",
                         on_click=lambda e: save_measurements("LeituraDescidaSonar3.csv", page)
                     ),
                 ], alignment=ft.MainAxisAlignment.CENTER),
                 ft.Row([
                     ft.ElevatedButton(
-                        text="Ler dados", icon=ft.icons.UPLOAD_FILE, width=200,
+                        text="Ler dados", icon=ft.Icons.UPLOAD_FILE, width=200,
                         tooltip="Ir para programa de Leitura de Dados",
                         on_click=lambda e: abrir_ler_dados(page)
                     ),
