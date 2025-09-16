@@ -5,8 +5,8 @@ import time
 
 # some globals
 # make sure to select a PWM pin
-DIGITAL_PIN6 = 6
-DIGITAL_PIN5 = 5
+DIGITAL_PIN6 = 3
+DIGITAL_PIN5 = 11
 
 # Create a Telemetrix instance
 board = telemetrix.Telemetrix()

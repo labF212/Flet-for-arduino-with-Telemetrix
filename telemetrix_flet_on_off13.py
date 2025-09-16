@@ -4,12 +4,15 @@ from telemetrix import telemetrix
 # Define a function to control the LED
 def control_led(state):
     if state == "ON":
-        board.digital_write(13, 1)  # Turn LED on
+        board.digital_write(7, 1)  # Turn LED on
     elif state == "OFF":
-        board.digital_write(13, 0)  # Turn LED off
+        board.digital_write(7, 0)  # Turn LED off
 
 # Create an instance of Telemetrix
 board = telemetrix.Telemetrix()
+
+# Set pin mode for digital output
+board.set_pin_mode_digital_output(7)
 
 def main(page: ft.Page):
     # Define the layout of the GUI
