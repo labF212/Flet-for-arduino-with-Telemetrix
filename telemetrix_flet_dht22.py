@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 from flet.matplotlib_chart import MatplotlibChart
 from telemetrix import telemetrix
 
-# Pino do DHT11
-DHT_PIN = 2
+# Pino do DHT22
+DHT_PIN = 4
 
 # Criação da placa
 board = telemetrix.Telemetrix()
@@ -16,7 +16,7 @@ board = telemetrix.Telemetrix()
 temperature = 0.0
 humidity = 0.0
 
-# Callback do DHT11
+# Callback do DHT22
 def dht_callback(data):
     global humidity, temperature
     humidity = data[2]
